@@ -55,5 +55,87 @@ Content-Type: application/json
     "status": 200
 }
 ```
+#### 3.2. GET /
+*Response*
+```
+HTTP/1.0 200 OK
+Content-Type: application/json
+{
+    "data": [
+        {
+            "id": 0,
+            "name": "Software testing course",
+            "description": "Java Selenium Module",
+            "project": "SDA",
+            "date": "01/03/2020",
+            "time": "09:00 AM",
+            "priority": 1
+        }
+    ],
+    "status": 200
+}
+```
+#### 3.3. GET /:id
+*Response*
+```
+HTTP/1.0 200 OK
+Content-Type: application/json
+{
+    "data": {
+        "id": 3,
+        "name": "Software testing course",
+        "description": "Java Selenium Module",
+        "project": "SDA",
+        "date": "01/03/2020",
+        "time": "09:00 AM",
+        "priority": 1
+    },
+    "status": 200
+}
+```
+#### 3.4. PUT /
+```
+Content-Type: application/json
+{   
+    "name": "Software testing course", 
+    "description": "Java Selenium Module", 
+    "project" : "SDA",
+    "date":  "02/03/2020",
+    "time": "1:00 PM",
+    "priority": 2
+}
+```
+
+*Response*
+```
+HTTP/1.0 200 OK
+Content-Type: application/json
+{
+    "message": "Todo successfully updated",
+    "status": 200
+}
+```
+#### 3.5. DELETE /:id
+*Response*
+```
+HTTP/1.0 200 OK
+Content-Type: application/json
+{
+    "message": "Todo successfully deleted",
+    "status": 200
+}
+```
+
+#### 3.6. POST /reset
+*Response*
+```
+HTTP/1.0 200 OK
+Content-Type: application/json
+{
+    "data": [],
+    "status": 200
+}
+```
+
 
 
