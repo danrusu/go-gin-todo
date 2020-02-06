@@ -1,4 +1,5 @@
 # go-gin-todo
+![Go](https://github.com/danrusu/go-gin-todo/workflows/Go/badge.svg?branch=master&event=push)
 
 Simple TODO REST API using GO GIN 
 
