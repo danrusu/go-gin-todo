@@ -22,12 +22,9 @@ go build
  - [test collection](GO_GIN_TODO.postman_collection.json)
 
 
-### 3. API DOC
-Todo REST Api Endpoints
-Create a new todo: POST /todos
-Create a new todo by posting its details to /todos. You receive back its details in JSON format.
+### 3. API DOC - REST endpoints
 
-#### POST /todos
+#### 3.1. POST /
 ```
 Content-Type: application/json
 {   
