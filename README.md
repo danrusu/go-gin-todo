@@ -5,7 +5,7 @@ Simple TODO REST API using GO GIN
 ### 0. Setup
  - [Go](https://golang.org/dl/)
  - IDE - [VSCode](https://code.visualstudio.com/download) / [GoLand](https://www.jetbrains.com/go/download)
- - [Postman](https://www.postman.com/downloads/).
+ - [Postman](https://www.postman.com/downloads/)
 
 ### 1. Todo REST API  
  - [models](./webservice/models) 
