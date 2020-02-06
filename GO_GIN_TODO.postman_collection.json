@@ -1,7 +1,7 @@
 {
 	"info": {
 		"_postman_id": "c2bf387a-457a-4ce0-969f-956d3535fd54",
-		"name": "GO_TODO",
+		"name": "GO_GIN_TODO",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
