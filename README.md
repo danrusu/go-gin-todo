@@ -7,8 +7,7 @@ Simple TODO REST API using GO GIN
  - IDE - [VSCode](https://code.visualstudio.com/download) / [GoLand](https://www.jetbrains.com/go/download)
  - [Postman](https://www.postman.com/downloads/)
 
-### 1. Todo REST API  
- - [models](./webservice/models) 
+### 1. Build and start Todo REST API  
 
 ```bash
 git clone https://github.com/danrusu/go-gin-todo.git
@@ -17,6 +16,6 @@ go build
 ./go-gin-todo.exe
 ```
 
-### 3. Test webservice via Postman
+### 2. Test webservice via Postman
  - base URL: http://localhost:3000/api/todo/
  - [test collection](GO_GIN_TODO.postman_collection.json)
