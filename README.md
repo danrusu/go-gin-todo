@@ -27,7 +27,7 @@ Todo REST Api Endpoints
 Create a new todo: POST /todos
 Create a new todo by posting its details to /todos. You receive back its details in JSON format.
 
-*Request POST /todos*
+#### POST /todos
 ```
 Content-Type: application/json
 {   
