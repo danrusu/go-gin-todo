@@ -18,15 +18,23 @@ func main() {
 	todos = []*models.Todo{}
 
 	router := gin.Default()
+	router.LoadHTMLGlob("./*.html")
 
-	v1 := router.Group("/api/todo")
+	todoApiRouter := router.Group("/todoApiRouter/todo")
 	{
-		v1.GET("/", getAllTodos)
-		v1.POST("/reset", resetAllTodos)
-		v1.GET("/:id", getTodo)
-		v1.POST("/", createTodo)
-		v1.PUT("/:id", updateTodo)
-		v1.DELETE("/:id", deleteTodo)
+		todoApiRouter.GET("/", getAllTodos)
+		todoApiRouter.POST("/reset", resetAllTodos)
+		todoApiRouter.GET("/:id", getTodo)
+		todoApiRouter.POST("/", createTodo)
+		todoApiRouter.PUT("/:id", updateTodo)
+		todoApiRouter.DELETE("/:id", deleteTodo)
+	}
+
+	uiRouter := router.Group("/")
+	{
+		uiRouter.GET("/", func(context *gin.Context) {
+			context.HTML(http.StatusOK, "index.html", nil)
+		})
 	}
 
 	router.Run("localhost:3000")
