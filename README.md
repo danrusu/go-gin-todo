@@ -17,6 +17,6 @@ go build
 ./go-gin-todo.exe
 ```
 
-### 2. Test webservice via Postman
+### 2. Test todo API via Postman
  - base URL: http://localhost:3000/api/todo/
  - [test collection](GO_GIN_TODO.postman_collection.json)
