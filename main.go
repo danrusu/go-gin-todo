@@ -5,6 +5,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"log"
 	"net/http"
+	"os"
 	"strconv"
 )
 
@@ -14,11 +15,13 @@ var (
 )
 
 func main() {
+	port := os.Getenv("PORT")
 
 	todos = []*models.Todo{}
 
 	router := gin.Default()
 	router.LoadHTMLGlob("./*.html")
+	router.Static("/static", "static")
 
 	todoApiRouter := router.Group("/todoApiRouter/todo")
 	{
@@ -37,7 +40,7 @@ func main() {
 		})
 	}
 
-	router.Run(":3000")
+	router.Run(":" + port) 
 }
 
 func findTodoInList(context *gin.Context, todoId int) int {
