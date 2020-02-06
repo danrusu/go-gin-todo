@@ -19,4 +19,4 @@ go build
 
 ### 3. Test webservice via Postman
  - base URL: http://localhost:3000/api/todo/
- - [(test collection](GO_GIN_TODO.postman_collection.json)
+ - [test collection](GO_GIN_TODO.postman_collection.json)
