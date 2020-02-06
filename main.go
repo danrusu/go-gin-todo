@@ -23,7 +23,7 @@ func main() {
 	router.LoadHTMLGlob("./*.html")
 	router.Static("/static", "static")
 
-	todoApiRouter := router.Group("/todoApiRouter/todo")
+	todoApiRouter := router.Group("/api/todo")
 	{
 		todoApiRouter.GET("/", getAllTodos)
 		todoApiRouter.POST("/reset", resetAllTodos)
