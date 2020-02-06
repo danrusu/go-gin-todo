@@ -1,0 +1,744 @@
+{
+	"info": {
+		"_postman_id": "c2bf387a-457a-4ce0-969f-956d3535fd54",
+		"name": "GO_TODO",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "SETUP",
+			"item": [],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "POSITIVE",
+			"item": [
+				{
+					"name": "setup",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "a7d48a4b-5b4a-4c36-8846-b37c2b218ddf",
+								"exec": [
+									"pm.globals.clear();\r",
+									"\r",
+									"pm.globals.set('URL', 'localhost:3000/api/todo');\r",
+									"\r",
+									"const todo1 = {   \r",
+									"    \"name\": \"Software testing course\", \r",
+									"    \"description\": \"Java Selenium Module\", \r",
+									"    \"project\" : \"SDA\",\r",
+									"    \"date\":  \"01/03/2020\",\r",
+									"    \"time\": \"09:00 AM\",\r",
+									"    \"priority\": 1\r",
+									"};\r",
+									"\r",
+									"const todo2 = {   \r",
+									"    \"name\": \"Play smart with the backend\", \r",
+									"    \"description\": \"Postman APi testing\", \r",
+									"    \"project\" : \"TDT\",\r",
+									"    \"date\":  \"06/07/2020\",\r",
+									"    \"time\": \"18:00 PM\",\r",
+									"    \"priority\": 1\r",
+									"};\r",
+									"\r",
+									"const todo1Update = {   \r",
+									"    \"name\": \"Software testing course\", \r",
+									"    \"description\": \"Java Selenium Module\", \r",
+									"    \"project\" : \"SDA\",\r",
+									"    \"date\":  \"02/03/2020\",\r",
+									"    \"time\": \"1:00 PM\",\r",
+									"    \"priority\": 2\r",
+									"};\r",
+									"\r",
+									"pm.globals.set('todo1', JSON.stringify(todo1));\r",
+									"pm.globals.set('todo2', JSON.stringify(todo2));\r",
+									"pm.globals.set('todo1Update', JSON.stringify(todo1Update));\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "HEAD",
+						"header": [],
+						"url": {
+							"raw": "https://www.google.com",
+							"protocol": "https",
+							"host": [
+								"www",
+								"google",
+								"com"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "reset all todos",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{URL}}/reset",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"reset"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get todos (empty list)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "14f75d40-f109-4067-8b49-9df08f6a3813",
+								"exec": [
+									"pm.test(\"Todos list is empty\", ",
+									"    () => pm.expect(pm.response.json().data).to.be.an('array').and.to.be.empty",
+									");"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "text/plain"
+							}
+						],
+						"url": {
+							"raw": "{{URL}}",
+							"host": [
+								"{{URL}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create todo1",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "9fca6fe4-91da-4270-bbe1-260669baa95a",
+								"exec": [
+									"pm.test('Returned messaje is correct',",
+									"    () => pm.expect(pm.response.json().message).eql('Todo successfully created')",
+									");",
+									"",
+									"pm.test('Todo1 id was created',",
+									"    () => {",
+									"        const todo1Id = pm.response.json().data.id;",
+									"        () => pm.expect().to.be('number');",
+									"        pm.globals.set('todo1.id', todo1Id);",
+									"    }",
+									");",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{{todo1}}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}",
+							"host": [
+								"{{URL}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create todo2",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "ac7abb19-4584-4176-b351-2a4b18e45afb",
+								"exec": [
+									"pm.test('Returned messaje is correct',",
+									"    () => pm.expect(pm.response.json().message).eql('Todo successfully created')",
+									");",
+									"",
+									"pm.test('Todo2 id was created',",
+									"    () => {",
+									"        const todo2Id = pm.response.json().data.id;",
+									"        () => pm.expect().to.be('number');",
+									"        pm.globals.set('todo2.id', todo2Id);",
+									"    }",
+									");",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{{todo2}}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}",
+							"host": [
+								"{{URL}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "check todos",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "2da95d42-c2e2-41a2-a9f5-762b5a85ace8",
+								"exec": [
+									"const expectedTodos = [",
+									"    JSON.parse(pm.globals.get('expectedTodo1')),",
+									"    JSON.parse(pm.globals.get('expectedTodo2'))",
+									"];",
+									"    ",
+									"console.log(JSON.stringify(expectedTodos, null, 2));",
+									"",
+									"pm.test(\"Response is correct\", () => {",
+									"   pm.expect(pm.response.json().data).eql(expectedTodos); ",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "03d41708-9d02-4bc9-8b53-63414367de46",
+								"exec": [
+									"const expectedTodo1 = { id: pm.globals.get('todo1.id'), ...JSON.parse(pm.globals.get('todo1')) };\r",
+									"const expectedTodo2 = { id: pm.globals.get('todo2.id'), ...JSON.parse(pm.globals.get('todo2')) };\r",
+									"\r",
+									"pm.globals.set('expectedTodo1', JSON.stringify(expectedTodo1));\r",
+									"pm.globals.set('expectedTodo2', JSON.stringify(expectedTodo2));\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "text/plain"
+							}
+						],
+						"url": {
+							"raw": "{{URL}}",
+							"host": [
+								"{{URL}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "check todo1",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "23742d8b-442e-48eb-a37a-226c31f97913",
+								"exec": [
+									"const expectedTodo1 = JSON.parse(pm.globals.get('expectedTodo1'));",
+									"",
+									"pm.test(\"Response is correct\", () => {",
+									"   pm.expect(pm.response.json().data).eql(expectedTodo1); ",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "text/plain"
+							}
+						],
+						"url": {
+							"raw": "{{URL}}/{{todo1.id}}",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"{{todo1.id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update todo1",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "7e54b120-8bba-4d51-be94-080e9c976c05",
+								"exec": [
+									"pm.test('Returned messaje is correct',",
+									"    () => pm.expect(pm.response.json().message).to.eql('Todo successfully updated')",
+									");",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{{todo1Update}}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/{{todo1.id}}",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"{{todo1.id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "check updated todo1",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "23742d8b-442e-48eb-a37a-226c31f97913",
+								"exec": [
+									"const expectedUpdatedTodo1 = {",
+									"    id: pm.globals.get('todo1.id'),",
+									"    ...JSON.parse(pm.globals.get('todo1Update'))",
+									"};",
+									"",
+									"pm.test(\"Response is correct\", () => {",
+									"    pm.expect(pm.response.json().data).eql(expectedUpdatedTodo1);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "91390f6a-c3a9-45de-9100-6c9c8dea5417",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "text/plain"
+							}
+						],
+						"url": {
+							"raw": "{{URL}}/{{todo1.id}}",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"{{todo1.id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete todo1",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "3afd8103-d6b9-466d-acc3-a07a8cf95eff",
+								"exec": [
+									"pm.test('Returned messaje is correct',",
+									"    () => pm.expect(pm.response.json().message).to.eql('Todo successfully deleted')",
+									");",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "text/plain"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{   \r\n    \"name\": \"Attend Artificial Inteligence Laboratory\", \r\n    \"description\": \"Last attendence for in year\", \r\n    \"project\" : \"University\",\r\n    \"date\":  \"1/9/2019\",\r\n    \"time\": \"00:00 AM\",\r\n    \"priority\": 3\r\n}",
+							"options": {
+								"raw": {
+									"language": "text"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/{{todo1.id}}",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"{{todo1.id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "check todos",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "2da95d42-c2e2-41a2-a9f5-762b5a85ace8",
+								"exec": [
+									"const expectedTodos = [",
+									"    JSON.parse(pm.globals.get('expectedTodo2'))",
+									"];",
+									"    ",
+									"console.log(JSON.stringify(expectedTodos, null, 2));",
+									"",
+									"pm.test(\"Response is correct\", () => {",
+									"   pm.expect(pm.response.json().data).eql(expectedTodos); ",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "text/plain"
+							}
+						],
+						"url": {
+							"raw": "{{URL}}",
+							"host": [
+								"{{URL}}"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "31f9afc6-080d-49bd-b3a9-5a168bed9ebb",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "e9881f3a-d34d-4013-8e3d-f8be018ae698",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 200\", () => {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						]
+					}
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "NEGATIVE",
+			"item": [
+				{
+					"name": "check todo wrong id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "23742d8b-442e-48eb-a37a-226c31f97913",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "text/plain"
+							}
+						],
+						"url": {
+							"raw": "{{URL}}/{{todo1.id}}",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"{{todo1.id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update todo  wrong id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "7e54b120-8bba-4d51-be94-080e9c976c05",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{{todo1Update}}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/{{todo1.id}}",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"{{todo1.id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete todo  wrong id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "3afd8103-d6b9-466d-acc3-a07a8cf95eff",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "text/plain"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{   \r\n    \"name\": \"Attend Artificial Inteligence Laboratory\", \r\n    \"description\": \"Last attendence for in year\", \r\n    \"project\" : \"University\",\r\n    \"date\":  \"1/9/2019\",\r\n    \"time\": \"00:00 AM\",\r\n    \"priority\": 3\r\n}",
+							"options": {
+								"raw": {
+									"language": "text"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/{{todo1.id}}",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"{{todo1.id}}"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "9033c60c-540e-4445-928a-904e0a8b0cc7",
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "239741b3-5550-4df5-9ac8-aa316ab85eab",
+						"type": "text/javascript",
+						"exec": [
+							"pm.test(\"Status code is 404\", () => {",
+							"    pm.response.to.have.status(404);",
+							"});",
+							"",
+							"pm.test('Returned messaje is correct',",
+							"    () => pm.expect(pm.response.json().message).to.eql('Todo was not found')",
+							");",
+							"",
+							""
+						]
+					}
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "79e7045f-c672-4e87-bc10-be5435d7a585",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "f32a0b53-9a3f-48de-8e8c-3262d304cbe8",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"protocolProfileBehavior": {}
+}
