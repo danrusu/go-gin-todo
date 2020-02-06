@@ -7,11 +7,6 @@
 	"item": [
 		{
 			"name": "SETUP",
-			"item": [],
-			"protocolProfileBehavior": {}
-		},
-		{
-			"name": "POSITIVE",
 			"item": [
 				{
 					"name": "setup",
@@ -22,8 +17,6 @@
 								"id": "a7d48a4b-5b4a-4c36-8846-b37c2b218ddf",
 								"exec": [
 									"pm.globals.clear();\r",
-									"\r",
-									"pm.globals.set('URL', 'localhost:3000/api/todo');\r",
 									"\r",
 									"const todo1 = {   \r",
 									"    \"name\": \"Software testing course\", \r",
@@ -75,7 +68,13 @@
 						}
 					},
 					"response": []
-				},
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "POSITIVE",
+			"item": [
 				{
 					"name": "reset all todos",
 					"request": {

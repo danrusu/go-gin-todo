@@ -9,11 +9,13 @@ Simple TODO REST API using GO GIN
  - [Postman](https://www.postman.com/downloads/)
 
 ### 1. Build and start Todo REST API  
+[Gitbash]
 
 ```bash
 git clone https://github.com/danrusu/go-gin-todo.git
 cd go-gin-todo
 go build
+export PORT=3000
 ./go-gin-todo.exe
 ```
 
