@@ -76,6 +76,7 @@ func getAllTodos(context *gin.Context) {
 func resetAllTodos(context *gin.Context) {
 
 	todos = []*models.Todo{}
+	id = 0
 
 	context.JSON(
 		http.StatusOK, // header
