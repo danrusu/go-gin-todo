@@ -167,7 +167,10 @@
 		}
 			
 		const bindButtonsActionClickHandlers = () => selectAll('#actions button')
-			.forEach(button => botton.addEventListener('click', buttonsClickEventHandlers[button.id])				
+			.forEach(button => button.addEventListener(
+				'click', 
+				buttonsClickEventHandlers[button.id]
+			)				
 		);
 		
 		bindButtonsActionClickHandlers();
