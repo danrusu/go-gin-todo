@@ -8,7 +8,7 @@ Simple TODO REST API using GO GIN
  - IDE - [VSCode](https://code.visualstudio.com/download) / [GoLand](https://www.jetbrains.com/go/download)
  - [Postman](https://www.postman.com/downloads/)
 
-### 1. Build and start Todo REST API  
+### 1. Build and start Todo REST API locally
 [Gitbash]
 
 ```bash
@@ -18,15 +18,20 @@ go build
 export PORT=3000
 ./go-gin-todo.exe
 ```
+- API - http://localhost:3000/api/todo/
+- UI  - http://localhost:3000
 
-### 2. Test todo API via Postman
- - base URL: http://localhost:3000/api/todo/
+### 2. Todo App on Heroku 
+ - UI - https://go-gin-todo.herokuapp.com
+ - API - https://go-gin-todo.herokuapp.com/api/todo
+
+### 3. Test todo API via Postman
  - [test collection](GO_GIN_TODO.postman_collection.json)
 
 
-### 3. API DOC - REST endpoints
+### 4. API DOC - REST endpoints
 
-#### 3.1. POST /
+#### 4.1. POST /
 ```
 Content-Type: application/json
 {   
@@ -57,7 +62,7 @@ Content-Type: application/json
     "status": 200
 }
 ```
-#### 3.2. GET /
+#### 4.2. GET /
 *Response*
 ```
 HTTP/1.0 200 OK
@@ -77,7 +82,7 @@ Content-Type: application/json
     "status": 200
 }
 ```
-#### 3.3. GET /:id
+#### 4.3. GET /:id
 *Response*
 ```
 HTTP/1.0 200 OK
@@ -95,7 +100,7 @@ Content-Type: application/json
     "status": 200
 }
 ```
-#### 3.4. PUT /
+#### 4.4. PUT /
 ```
 Content-Type: application/json
 {   
@@ -117,7 +122,7 @@ Content-Type: application/json
     "status": 200
 }
 ```
-#### 3.5. DELETE /:id
+#### 5.5. DELETE /:id
 *Response*
 ```
 HTTP/1.0 200 OK
@@ -128,7 +133,7 @@ Content-Type: application/json
 }
 ```
 
-#### 3.6. POST /reset
+#### 6.6. POST /reset
 *Response*
 ```
 HTTP/1.0 200 OK
