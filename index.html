@@ -162,7 +162,7 @@
 			getTodoButton: () => todo.getTodo(getTodoId()),
 			createTodoButton: () => todo.createTodo(getTodoJsonBody()),
 			updateTodoButton: () => todo.updateTodo(getTodoId(), getTodoJsonBody()),
-			deleteTodoButton: () => () => todo.deleteTodo(getTodoId()),
+			deleteTodoButton: () => todo.deleteTodo(getTodoId()),
 			deleteAllTodosButton: todo.deleteAllTodos
 		}
 			
