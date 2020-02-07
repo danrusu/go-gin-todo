@@ -122,7 +122,7 @@ Content-Type: application/json
     "status": 200
 }
 ```
-#### 5.5. DELETE /:id
+#### 4.5. DELETE /:id
 *Response*
 ```
 HTTP/1.0 200 OK
@@ -133,7 +133,7 @@ Content-Type: application/json
 }
 ```
 
-#### 6.6. POST /reset
+#### 4.6. POST /reset
 *Response*
 ```
 HTTP/1.0 200 OK
