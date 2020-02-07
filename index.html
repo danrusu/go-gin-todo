@@ -86,12 +86,12 @@
 				:  todoJson.priority == 2 ? 'priority-2-note'
 				: 'priority-3-note';
 
-			return `<div class="${noteClass}">`
-				+ `<div class="title">${todoJson.name}</div>`
-				+ `<div class="description">${todoJson.description}</div>`
-				+ `<div class="date">${todoJson.date} ${todoJson.time}</div>`
-				+ `<div class="priority">${todoJson.priority}</div>`
-				+ `</div>`;
+			return '<div clas="' + noteClass + '">'
+				+ '<div class="title"' + todoJson.name + '</div>'
+				+ '<div class="description">' + todoJson.description + '</div>'
+				+ '<div class="date">' + todoJson.date + todoJson.time + '</div>'
+				+ '<div class="priority">' + todoJson.priority + '</div>'
+				+ '</div>';
 		}
 							
 		const actions = {
