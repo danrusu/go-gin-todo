@@ -63,7 +63,7 @@
 		
 			getTodo: async todoId => {
 				const responseJson =  await rest(
-					`https://go-gin-todo.herokuapp.com/api/todo/${todoId}`
+					'https://go-gin-todo.herokuapp.com/api/todo/' + todoId
 				);			
 				logJson(responseJson);
 				
@@ -86,7 +86,7 @@
 			
 			updateTodo: async (todoId, todoJson) => {
 				const responseJson =  await rest(
-					`https://go-gin-todo.herokuapp.com/api/todo/${todoId}`,
+					'https://go-gin-todo.herokuapp.com/api/todo/${todoId}' + todoId,
 					{
 						method: 'PUT',
 						headers: { 'Content-Type': 'application/json' },
@@ -100,7 +100,7 @@
 			
 			deleteTodo: async todoId => {
 				const responseJson =  await rest(
-					`https://go-gin-todo.herokuapp.com/api/todo/${todoId}`, 
+					'https://go-gin-todo.herokuapp.com/api/todo/${todoId}' + todoId, 
 					{ method: 'DELETE' }
 				);			
 				logJson(responseJson);
