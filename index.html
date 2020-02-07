@@ -159,11 +159,11 @@
 
 		const buttonsClickEventHandlers = {
 			getAllTodos: todo.getAllTodos,
-			getTodoButton: () => todo.getTodo(getTodoId()),
-			createTodoButton: () => todo.createTodo(getTodoJsonBody()),
-			updateTodoButton: () => todo.updateTodo(getTodoId(), getTodoJsonBody()),
-			deleteTodoButton: () => todo.deleteTodo(getTodoId()),
-			deleteAllTodosButton: todo.deleteAllTodos
+			getTodo: () => todo.getTodo(getTodoId()),
+			createTodo: () => todo.createTodo(getTodoJsonBody()),
+			updateTodo: () => todo.updateTodo(getTodoId(), getTodoJsonBody()),
+			deleteTodo: () => todo.deleteTodo(getTodoId()),
+			deleteAllTodos: todo.deleteAllTodos
 		}
 			
 		const bindButtonsActionClickHandlers = () => selectAll('#actions button')
