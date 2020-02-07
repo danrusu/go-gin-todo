@@ -74,6 +74,7 @@
 			priority: 1
 		};
 		selectById('todoBody').value = JSON.stringify(defaultTodoBody, null, 2);
+		selectById('todoId').value = 0;
 		
 		const rest = async (url, options) => {
 			const response = await fetch(url, options);
