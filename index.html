@@ -80,8 +80,21 @@
 			const response = await fetch(url, options);
 			return await response.json();
 		}
+
+		const createTodoHtml = todoJson => {
+			const noteClass = todoJson.priority == 1 ? 'priority-1-note' 
+				:  todoJson.priority == 2 ? 'priority-2-note'
+				: 'priority-3-note';
+
+			return `<div class="${noteClass}">`
+				+ `<div class="title">${todoJson.name}</div>`
+				+ `<div class="description">${todoJson.description}</div>`
+				+ `<div class="date">${todoJson.date} ${todoJson.time}</div>`
+				+ `<div class="priority">${todoJson.priority}</div>`
+				+ `</div>`;
+		}
 							
-		const todo = {
+		const actions = {
 		
 			getAllTodos: async () => {
 				const responseJson =  await rest(
@@ -89,6 +102,9 @@
 				);			
 				logJson(responseJson);
 				
+				const todos = selectById('todos');
+				reponseJson.data.map(createTodoHtml).forEach(todoHtml => todos.html = todos.html + todoHtml);
+
 				return responseJson.data;
 			},
 		
@@ -158,12 +174,12 @@
 		
 
 		const buttonsClickEventHandlers = {
-			getAllTodos: todo.getAllTodos,
-			getTodo: () => todo.getTodo(getTodoId()),
-			createTodo: () => todo.createTodo(getTodoJsonBody()),
-			updateTodo: () => todo.updateTodo(getTodoId(), getTodoJsonBody()),
-			deleteTodo: () => todo.deleteTodo(getTodoId()),
-			deleteAllTodos: todo.deleteAllTodos
+			getAllTodos: actions.getAllTodos,
+			getTodo: () => actions.getTodo(getTodoId()),
+			createTodo: () => actions.createTodo(getTodoJsonBody()),
+			updateTodo: () => actions.updateTodo(getTodoId(), getTodoJsonBody()),
+			deleteTodo: () => actions.deleteTodo(getTodoId()),
+			deleteAllTodos: actions.deleteAllTodos
 		}
 			
 		const bindButtonsActionClickHandlers = () => selectAll('#actions button')
