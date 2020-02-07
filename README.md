@@ -22,7 +22,7 @@ export PORT=3000
 - UI  - http://localhost:3000
 
 ### 2. Todo App on Heroku 
- - UI - https://go-gin-todo.herokuapp.com
+ - UI - https://go-gin-todo.herokuapp.com (at this point results are only logged in console)
  - API - https://go-gin-todo.herokuapp.com/api/todo
 
 ### 3. Test todo API via Postman
