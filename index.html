@@ -63,7 +63,7 @@
 		
 			getTodo: async todoId => {
 				const responseJson =  await rest(
-					`https://go-gin-todo.herokuapp.com/api/todo${todoId}`
+					`https://go-gin-todo.herokuapp.com/api/todo/${todoId}`
 				);			
 				logJson(responseJson);
 				
@@ -77,7 +77,8 @@
 						method: 'POST',
 						headers: { 'Content-Type': 'application/json' },
 						data: JSON.stringify(todoJson)						 
-					);			
+					}
+				);			
 				logJson(responseJson);
 				
 				return responseJson.data;
@@ -90,7 +91,8 @@
 						method: 'PUT',
 						headers: { 'Content-Type': 'application/json' },
 						data: JSON.stringify(todoJson)						 
-					);			
+					}
+				);			
 				logJson(responseJson);
 				
 				return responseJson.data;
@@ -99,27 +101,69 @@
 			deleteTodo: async todoId => {
 				const responseJson =  await rest(
 					`https://go-gin-todo.herokuapp.com/api/todo/${todoId}`, 
-					{ method: 'DELETE'}
+					{ method: 'DELETE' }
 				);			
 				logJson(responseJson);
 				return responseJson;
 			},
 			
-			deleteAllTodos = async () => {
+			deleteAllTodos: async () => {
 				const responseJson =  await rest(
-					'https://go-gin-todo.herokuapp.com/api/todo/reset'
+					'https://go-gin-todo.herokuapp.com/api/todo/reset',
+					{ method: 'POST' }
 				);			
 				logJson(responseJson);
 				return responseJson;
 			}		
 		};
 		
-		const addTodoActionToButton = buttonElement => 
+		const addTodoActionToButton = buttonElement => { 
+			console.log(todo[button.id]);
 			buttonElement.addEventListener('click', todo[button.id]);
+		}
 			
-		const bindButtonClicks = () => selectAll('#actions button').forEach(addTodoActionToButton);
+		const bindButtonsActionClick = () => {
+			const getAllTodosButton = selectById('getAllTodos');
+			getAllTodosButton.addEventListener('click', todo['getAllTodos']);
+			
+			const getTodoButton = selectById('getTodo');
+			getTodoButton.addEventListener('click', () => todo['getTodo'](0));
+			
+			const createTodoButton = selectById('createTodo');
+			createTodoButton.addEventListener('click', () => todo['createTodo'](
+				{				
+					"name": "Software testing course", 
+					"description": "Java Selenium Module", 
+					"project" : "SDA",
+					"date":  "01/03/2020",
+					"time": "09:00 AM",
+					"priority": 1
+				}
+			));
+			
+			const updateTodoButton = selectById('updateTodo');
+			updateTodoButton.addEventListener('click', () => todo['updateTodo'](
+				0, 
+				{
+					"name": "Software testing course", 
+					"description": "Java Selenium Module", 
+					"project" : "SDA",
+					"date":  "02/03/2020",
+					"time": "1:00 PM",
+					"priority": 2
+				}
+			));
+			
+			const deleteTodoButton = selectById('deleteTodo');
+			deleteTodoButton.addEventListener('click', () => todo['deleteTodo'](0));
+			
+			const deleteAllTodosButton = selectById('deleteAllTodos');
+			deleteAllTodosButton.addEventListener('click', todo['deleteAllTodos']);
+			
+		}
 		
-					
+		bindButtonsActionClick();
+		
     </script>
 
 </html>
