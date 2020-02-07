@@ -5,16 +5,30 @@
         <title>TODO APP</title>
 		<style>
 			#content{
-				text-align: center;
-				border: 2px solid black;
+						
 			}
-			span{				
+			span, input{				
 				display: inline-block;
-				width: 49%;				
-				margin 0 auto;				
+				width: 49%;						
+			}
+			button, input, label, textarea{								
+				margin: 10px;
+				padding: 5px;
+				width: 150px;
 			}
 			button{
 				display: block;
+			}
+			button:hover{
+				background-color: indianred;
+				color: white;
+			}
+			label{
+				display: inline-block;
+				vertical-align: top;
+			}
+			textarea{
+				width: 350px;
 			}
 		</style>
     </head>
@@ -23,6 +37,13 @@
         <h2>Welcome to TODO APP</h2>
 		<div id="content">
 			<span id="actions">
+				<label>TODO ID</label>
+				<input type="number" id="todoId" /><br>
+				
+				<label>TODO CONTENT</label>
+				<textarea id="todoBody" rows="8" cols="100">
+				</textarea>	
+			
 				<button id="getAllTodos">GET ALL</button>
 				<button id="getTodo">GET</button>
 				<button id="createTodo">CREATE</button>
@@ -37,13 +58,23 @@
 		</div>
     </body>
 
-    <script>
+    <script>			
 		const prettify = json => JSON.stringify(json, null, 2);
 		const logJson = json => console.log(prettify(json));
 		
 		const selectById = id => document.getElementById(id);
 		const selectAll = cssSelector => [].slice.call(document.querySelectorAll(cssSelector));
 		const setText = (id, text) => selectById(id).innerHTML = text;
+		
+		const defaultTodoBody = {   
+			name: "Software testing course", 
+			description: "Java Selenium Module", 
+			project : "SDA",
+			date:  "01/03/2020",
+			time: "09:00 AM",
+			priority: 1
+		};
+		selectById('todoBody').value = JSON.stringify(defaultTodoBody, null, 2);
 		
 		const rest = async (url, options) => {
 			const response = await fetch(url, options);
@@ -122,40 +153,25 @@
 			buttonElement.addEventListener('click', todo[button.id]);
 		}
 			
+		const getTodoJsonBody = () => JSON.parse(selectById('todoBody').value);
+		const getTodoId = () => selectById('todoId').value;
+		
+			
 		const bindButtonsActionClick = () => {
 			const getAllTodosButton = selectById('getAllTodos');
 			getAllTodosButton.addEventListener('click', todo['getAllTodos']);
 			
 			const getTodoButton = selectById('getTodo');
-			getTodoButton.addEventListener('click', () => todo['getTodo'](0));
+			getTodoButton.addEventListener('click', () => todo['getTodo'](getTodoId()));
 			
-			const createTodoButton = selectById('createTodo');
-			createTodoButton.addEventListener('click', () => todo['createTodo'](
-				{				
-					"name": "Software testing course", 
-					"description": "Java Selenium Module", 
-					"project" : "SDA",
-					"date":  "01/03/2020",
-					"time": "09:00 AM",
-					"priority": 1
-				}
-			));
+			const createTodoButton = selectById('createTodo');			
+			createTodoButton.addEventListener('click', () => todo['createTodo'](getTodoJsonBody()));
 			
 			const updateTodoButton = selectById('updateTodo');
-			updateTodoButton.addEventListener('click', () => todo['updateTodo'](
-				0, 
-				{
-					"name": "Software testing course", 
-					"description": "Java Selenium Module", 
-					"project" : "SDA",
-					"date":  "02/03/2020",
-					"time": "1:00 PM",
-					"priority": 2
-				}
-			));
+			updateTodoButton.addEventListener('click', () => todo['updateTodo'](getTodoId(), getTodoJsonBody()));			
 			
 			const deleteTodoButton = selectById('deleteTodo');
-			deleteTodoButton.addEventListener('click', () => todo['deleteTodo'](0));
+			deleteTodoButton.addEventListener('click', () => todo['deleteTodo'](getTodoId()));
 			
 			const deleteAllTodosButton = selectById('deleteAllTodos');
 			deleteAllTodosButton.addEventListener('click', todo['deleteAllTodos']);
