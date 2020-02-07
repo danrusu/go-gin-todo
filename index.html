@@ -156,29 +156,21 @@
 		const getTodoJsonBody = () => JSON.parse(selectById('todoBody').value);
 		const getTodoId = () => selectById('todoId').value;
 		
-			
-		const bindButtonsActionClick = () => {
-			const getAllTodosButton = selectById('getAllTodos');
-			getAllTodosButton.addEventListener('click', todo['getAllTodos']);
-			
-			const getTodoButton = selectById('getTodo');
-			getTodoButton.addEventListener('click', () => todo['getTodo'](getTodoId()));
-			
-			const createTodoButton = selectById('createTodo');			
-			createTodoButton.addEventListener('click', () => todo['createTodo'](getTodoJsonBody()));
-			
-			const updateTodoButton = selectById('updateTodo');
-			updateTodoButton.addEventListener('click', () => todo['updateTodo'](getTodoId(), getTodoJsonBody()));			
-			
-			const deleteTodoButton = selectById('deleteTodo');
-			deleteTodoButton.addEventListener('click', () => todo['deleteTodo'](getTodoId()));
-			
-			const deleteAllTodosButton = selectById('deleteAllTodos');
-			deleteAllTodosButton.addEventListener('click', todo['deleteAllTodos']);
-			
+
+		const buttonsClickEventHandlers = {
+			getAllTodos: todo.getAllTodos,
+			getTodoButton: () => todo.getTodo(getTodoId()),
+			createTodoButton: () => todo.createTodo(getTodoJsonBody()),
+			updateTodoButton: () => todo.updateTodo(getTodoId(), getTodoJsonBody()),
+			deleteTodoButton: () => () => todo.deleteTodo(getTodoId()),
+			deleteAllTodosButton: todo.deleteAllTodos
 		}
+			
+		const bindButtonsActionClickHandlers = () => selectAll('#actions button')
+			.forEach(button => botton.addEventListener('click', buttonsClickEventHandlers[button.id])				
+		);
 		
-		bindButtonsActionClick();
+		bindButtonsActionClickHandlers();
 		
     </script>
 
