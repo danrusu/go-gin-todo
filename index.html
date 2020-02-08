@@ -103,7 +103,7 @@
 				logJson(responseJson);
 				
 				const todos = selectById('todos');
-				reponseJson.data.map(createTodoHtml).forEach(todoHtml => todos.html = todos.html + todoHtml);
+				responseJson.data.map(createTodoHtml).forEach(todoHtml => todos.html = todos.html + todoHtml);
 
 				return responseJson.data;
 			},
