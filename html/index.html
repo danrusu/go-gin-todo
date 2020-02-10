@@ -99,7 +99,7 @@
 		const logJson = json => console.log(prettify(json));
 		
 		const selectById = id => document.getElementById(id);
-			
+		const selectAll = cssSelector => [].slice.call(document.querySelectorAll(cssSelector));	
 		const setText = (id, text) => selectById(id).innerHTML = text;
 		
 		// const defaultTodoBody = {   
