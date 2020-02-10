@@ -22,10 +22,10 @@ func main() {
 	router := gin.Default()
 
 	router.LoadHTMLGlob("./html/*.html")
-	router.StaticFile( "favicon.ico", "./html/favicon.ico")
-	router.StaticFile( "todo.css", "./html/todo.css")
-	router.StaticFile( "todo.js", "./html/todo.js")
-//	router.Static("/static", "static")
+	router.StaticFile("favicon.ico", "./html/favicon.ico")
+	router.StaticFile("todo.css", "./html/todo.css")
+	router.StaticFile("todo.js", "./html/todo.js")
+	//	router.Static("/static", "static")
 
 	todoApiRouter := router.Group("/api/todo")
 	{
@@ -44,7 +44,7 @@ func main() {
 		})
 	}
 
-	router.Run(":" + port) 
+	router.Run(":" + port)
 }
 
 func findTodoInList(context *gin.Context, todoId int) int {
@@ -63,28 +63,10 @@ func findTodoInList(context *gin.Context, todoId int) int {
 	return -1
 }
 
-func getTodoId(context *gin.Context) int {
-	todoId, _ := strconv.Atoi(context.Param("id"))
-	return todoId
-}
-
 func getAllTodos(context *gin.Context) {
 	context.JSON(
 		http.StatusOK, // header
 		gin.H{ // body
-			"status": http.StatusOK,
-			"data":   todos,
-		})
-}
-
-func resetAllTodos(context *gin.Context) {
-
-	todos = []*models.Todo{}
-	id = 0
-
-	context.JSON(
-		http.StatusOK, // header
-		gin.H{
 			"status": http.StatusOK,
 			"data":   todos,
 		})
@@ -190,4 +172,22 @@ func deleteTodo(context *gin.Context) {
 			"status":  http.StatusOK,
 			"message": "Todo successfully deleted",
 		})
+}
+
+func resetAllTodos(context *gin.Context) {
+
+	todos = []*models.Todo{}
+	id = 0
+
+	context.JSON(
+		http.StatusOK, // header
+		gin.H{
+			"status": http.StatusOK,
+			"data":   todos,
+		})
+}
+
+func getTodoId(context *gin.Context) int {
+	todoId, _ := strconv.Atoi(context.Param("id"))
+	return todoId
 }
