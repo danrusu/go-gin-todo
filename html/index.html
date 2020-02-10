@@ -154,11 +154,17 @@
 				+ '</div>';
 		}
 
+		const isTodoValid = () => {
+			if (selectById('todoName').value.equals("")){
+				alert('Name field is mandatory.');
+				return false;
+			}
+			return true;
+
+		}
+
 		const getTodoJson = () => {
 			
-			if (name.equals("")){
-				alert('Name field is mandatory.');
-			}
 			const todoJson = selectAll('#form input, #form select').reduce(
 				(acc, input) => {
 					// id = todoName => key = name
@@ -196,7 +202,11 @@
 			},
 			
 			createTodo: async todoJson => {
-				console.log('body:  ' + getTodoJson());
+				if (!isTodoValid()){
+					alert('Todo name field is mandatory');
+					return;
+				}
+				//console.log('body:  ' + getTodoJson());
 				const responseJson =  await rest(
 					apiUrl,
 					{
@@ -210,6 +220,10 @@
 			},
 			
 			updateTodo: async (todoId, todoJson) => {				
+				if (!isTodoValid()){
+					alert('Todo name field is mandatory');
+					return;
+				}
 				const responseJson =  await rest(
 					apiUrl + '/' + todoId,
 					{
