@@ -155,7 +155,7 @@
 		}
 
 		const getTodoJson = () => {
-			const todoJson = selectAll('#form input, #form.select').reduce(
+			const todoJson = selectAll('#form input, #form select').reduce(
 				(acc, input) => {
 					// id = todoName => key = name
 					const key = input.id.replace('todo','').toLowerCase();
