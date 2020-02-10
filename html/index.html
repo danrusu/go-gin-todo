@@ -131,10 +131,12 @@
 				+ '</div>';
 		}
 
-		const getTodoJson = () =>
-			selectAll('#form input').reduce(
-				(todoJson, input) => todoJson = { ...todoJson, [input.id]: input.value }
-		);			
+		const getTodoJson = () => {
+			const todoJson = selectAll('#form input').reduce(
+				(todoJson, input) => todoJson = { ...todoJson, [input.id]: input.value });
+
+			return JSON.stringify(todoJson);
+		}		
 
 		const actions = {
 					
