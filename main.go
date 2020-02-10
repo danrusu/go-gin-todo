@@ -20,7 +20,9 @@ func main() {
 	todos = []*models.Todo{}
 
 	router := gin.Default()
-	router.LoadHTMLGlob("./html/*")
+
+	router.LoadHTMLGlob("./html/*.html")
+	router.StaticFile( "favicon.ico", "./html/favicon.ico")
 	router.Static("/static", "static")
 
 	todoApiRouter := router.Group("/api/todo")
