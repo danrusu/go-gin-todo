@@ -41,20 +41,24 @@
 			#todos{
 				vertical-align: top;
 			}	
-			#todos .title{
+			#todos .name{
 				font-size: 1em;
 			}		
-			.priority-1-note{
+			[class*=priority-]{
+				color: white;
+				text-align: center;
+				margin-top: 2px;
+			}
+			.priority-1-todo{
 				background-color: indianred;
-				color: white;
+				
 			}
-			.priority-2-note{
+			.priority-2-todo{
 				background-color: orange;
-				color: white;
+				
 			}
-			.priority-3-note{
-				background-color: lightblue;
-				color: white;
+			.priority-3-todo{
+				background-color: lightblue;				
 			}
 
 		</style>
@@ -65,7 +69,6 @@
 		<div id="content">
 			<span id="actions">
 				
-				<label>TODO CONTENT</label>
 				<!-- <textarea id="todoBody" rows="8" cols="100">
 				</textarea>	 -->
 				<div id="form">
@@ -139,9 +142,9 @@
 		}
 
 		const createTodoHtml = todoJson => {
-			const todoClass = todoJson.priority == 1 ? 'priority-1-note' 
-				:  todoJson.priority == 2 ? 'priority-2-note'
-				: 'priority-3-note';
+			const todoClass = todoJson.priority == 1 ? 'priority-1-todo' 
+				:  todoJson.priority == 2 ? 'priority-2-todo'
+				: 'priority-3-todo';
 
 			return '<div class="' + todoClass + '">'
 				+ '<div class="title"' + todoJson.name + '</div>'
@@ -152,84 +155,85 @@
 		}
 
 		const getTodoJson = () => {
-			const todoJson = selectAll('#form input').reduce((todoJson, input) => {
-				// id = todoName => key = name
-				const key = input.id.replace('todo','').toLowerCase;
-				 todoJson = { ...todoJson, key: input.value }
-			});				
+			const todoJson = selectAll('#form input').reduce(
+				(acc, input) => {
+					// id = todoName => key = name
+					const key = input.id.replace('todo','').toLowerCase();
+					acc[key] = [ 'id', 'priority' ].includes(key) ?
+						parseInt(input.value) :
+						input.value;
 
-			return JSON.stringify(todoJson);
-		}		
+					return acc;
+				}, 
+				{}
+			);
+			return JSON.stringify(todoJson);	
+		};
 
+		const resetTodos = () => selectById('todos').innerHTML = '';
+			
+		//const apiUrl = 'https://go-gin-todo.herokuapp.com/api/todo';
+		const apiUrl = 'http://localhost:3000/api/todo';
 		const actions = {
 					
 			getAllTodos: async () => {
-				const responseJson =  await rest(
-					'https://go-gin-todo.herokuapp.com/api/todo'
-				);			
-				logJson(responseJson);
-				
-				const todos = selectById('todos');
+				const responseJson =  await rest(apiUrl);							
+				resetTodos();
 
-				responseJson.data.map(createTodoHtml).forEach(
-					todoHtml => todos.innerHTML = todos.innerHTML + todoHtml
-				);
+				responseJson.data.map(createTodoHtml)
+					.forEach(todoHtml => todos.innerHTML = todos.innerHTML + todoHtml);
 
 				return responseJson.data;
 			},
 		
 			getTodo: async todoId => {
-				const responseJson =  await rest(
-					'https://go-gin-todo.herokuapp.com/api/todo/' + todoId
-				);			
-				logJson(responseJson);
+				const responseJson =  await rest(apiUrl + '/' + todoId);			
 				
 				return responseJson.data;
 			},
 			
 			createTodo: async todoJson => {
+				console.log('body:  ' + getTodoJson());
 				const responseJson =  await rest(
-					'https://go-gin-todo.herokuapp.com/api/todo',
+					apiUrl,
 					{
 						method: 'POST',
 						headers: { 'Content-Type': 'application/json' },
 						body: getTodoJson()
 					}
 				);			
-				logJson(responseJson);
-				
+				actions.getAllTodos();
 				return responseJson.data;
 			},
 			
-			updateTodo: async (todoId, todoJson) => {
+			updateTodo: async (todoId, todoJson) => {				
 				const responseJson =  await rest(
-					'https://go-gin-todo.herokuapp.com/api/todo/' + todoId,
+					apiUrl + '/' + todoId,
 					{
 						method: 'PUT',
 						headers: { 'Content-Type': 'application/json' },
 						body: getTodoJson()						 
 					}
-				);			
-				logJson(responseJson);
-				
+				);							
+				actions.getAllTodos();
 				return responseJson.data;
 			},
 			
 			deleteTodo: async todoId => {
 				const responseJson =  await rest(
-					'https://go-gin-todo.herokuapp.com/api/todo/' + todoId, 
+					apiUrl + '/' + todoId, 
 					{ method: 'DELETE' }
-				);			
-				logJson(responseJson);
+				);							
+				actions.getAllTodos();
 				return responseJson;
 			},
 			
 			deleteAllTodos: async () => {
 				const responseJson =  await rest(
-					'https://go-gin-todo.herokuapp.com/api/todo/reset',
+					apiUrl + '/reset',
 					{ method: 'POST' }
-				);			
-				logJson(responseJson);
+				);							
+				resetTodos();
 				return responseJson;
 			}		
 		};
