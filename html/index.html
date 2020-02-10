@@ -147,14 +147,18 @@
 				: 'priority-3-todo';
 
 			return '<div class="' + todoClass + '">'
-				+ '<div class="title"' + todoJson.name + '</div>'
-				+ '<div class="description">' + todoJson.description + '</div>'
-				+ '<div class="date">' + todoJson.date + todoJson.time + '</div>'
-				+ '<div class="priority">' + todoJson.priority + '</div>'
+				+ '<div class="name">' + todoJson.name + '</div>'
+				+ '<div>' + todoJson.description + '</div>'
+				+ '<div>' + 'ID: ' + todoJson.id + '</div>'
+				+ '<div>' + 'DATE: ' + todoJson.date + todoJson.time + '</div>'
 				+ '</div>';
 		}
 
 		const getTodoJson = () => {
+			
+			if (name.equals("")){
+				alert('Name field is mandatory.');
+			}
 			const todoJson = selectAll('#form input, #form select').reduce(
 				(acc, input) => {
 					// id = todoName => key = name
@@ -175,7 +179,6 @@
 		const apiUrl = 'https://go-gin-todo.herokuapp.com/api/todo';
 		//const apiUrl = 'http://localhost:3000/api/todo';
 		const actions = {
-					
 			getAllTodos: async () => {
 				const responseJson =  await rest(apiUrl);							
 				resetTodos();
