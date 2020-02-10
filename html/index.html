@@ -203,7 +203,6 @@
 			
 			createTodo: async todoJson => {
 				if (!isTodoValid()){
-					alert('Todo name field is mandatory');
 					return;
 				}
 				//console.log('body:  ' + getTodoJson());
@@ -221,7 +220,6 @@
 			
 			updateTodo: async (todoId, todoJson) => {				
 				if (!isTodoValid()){
-					alert('Todo name field is mandatory');
 					return;
 				}
 				const responseJson =  await rest(
