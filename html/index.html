@@ -134,8 +134,7 @@
 		const getJsonTodo = () =>
 			selectAll('#form input').reduce(
 				(todoJson, input) => todoJson = { ...todoJson, [input.id]: input.value }
-			);			
-		}
+		);			
 
 		const actions = {
 					
