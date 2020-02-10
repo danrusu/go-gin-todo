@@ -218,8 +218,8 @@
 		const buttonsClickEventHandlers = {
 			getAllTodos: actions.getAllTodos,
 			getTodo: () => actions.getTodo(getTodoId()),
-			createTodo: () => actions.createTodo(getTodoJsonBody()),
-			updateTodo: () => actions.updateTodo(getTodoId(), getTodoJsonBody()),
+			createTodo: () => actions.createTodo(getTodoJson()),
+			updateTodo: () => actions.updateTodo(getTodoId(), getTodoJson()),
 			deleteTodo: () => actions.deleteTodo(getTodoId()),
 			deleteAllTodos: actions.deleteAllTodos
 		}
