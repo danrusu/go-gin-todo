@@ -29,6 +29,14 @@
 			input{
 				text-align: center;
 			}
+
+			.form span{
+				display: inline-block;
+				width: 100px;
+				color: darkblue;
+				margin: 10px;
+			}
+
 		</style>
     </head>
 
@@ -36,12 +44,41 @@
         <h2>Welcome to TODO APP</h2>
 		<div id="content">
 			<span id="actions">
-				<label>TODO ID</label>
-				<input type="number" id="todoId" /><br>
 				
 				<label>TODO CONTENT</label>
-				<textarea id="todoBody" rows="8" cols="100">
-				</textarea>	
+				<!-- <textarea id="todoBody" rows="8" cols="100">
+				</textarea>	 -->
+				<div id="form">
+					<div>
+						<span>Id</span>
+						<input type="number" id="todoId" />
+					</div>
+					<div>
+						<span>Name</span>
+						<input type="text" id="todoName" />
+					</div>
+					<div>
+						<span>Description</span>
+						<input type="text" id="todoDescription" />
+					</div>
+					<div>
+						<span>Project</span>
+						<input type="text" id="todoProject" />
+					</div>
+					<div>
+						<span>Date</span>
+						<input type="date" id="todoDate" />
+					</div>
+					<div>
+						<span>Time</span>
+						<input type="time" id="todoTime" />
+					</div>
+					<div>
+						<span>Priority</span>
+						<input type="number" id="todoPriority" />
+					</div>
+				</div>
+				
 			
 				<button id="getAllTodos">GET ALL</button>
 				<button id="getTodo">GET</button>
@@ -62,19 +99,19 @@
 		const logJson = json => console.log(prettify(json));
 		
 		const selectById = id => document.getElementById(id);
-		const selectAll = cssSelector => [].slice.call(document.querySelectorAll(cssSelector));
+			
 		const setText = (id, text) => selectById(id).innerHTML = text;
 		
-		const defaultTodoBody = {   
-			name: "Software testing course", 
-			description: "Java Selenium Module", 
-			project : "SDA",
-			date:  "01/03/2020",
-			time: "09:00 AM",
-			priority: 1
-		};
-		selectById('todoBody').value = JSON.stringify(defaultTodoBody, null, 2);
-		selectById('todoId').value = 0;
+		// const defaultTodoBody = {   
+		// 	name: "Software testing course", 
+		// 	description: "Java Selenium Module", 
+		// 	project : "SDA",
+		// 	date:  "01/03/2020",
+		// 	time: "09:00 AM",
+		// 	priority: 1
+		// };
+		// selectById('todoBody').value = JSON.stringify(defaultTodoBody, null, 2);
+		// selectById('todoId').value = 0;
 		
 		const rest = async (url, options) => {
 			const response = await fetch(url, options);
@@ -93,9 +130,15 @@
 				+ '<div class="priority">' + todoJson.priority + '</div>'
 				+ '</div>';
 		}
-							
+
+		const getJsonTodo = () =>
+			selectAll('#form input').reduce(
+				(todoJson, input) => todoJson = { ...todoJson, [input.id]: input.value }
+			);			
+		}
+
 		const actions = {
-		
+					
 			getAllTodos: async () => {
 				const responseJson =  await rest(
 					'https://go-gin-todo.herokuapp.com/api/todo'
@@ -123,7 +166,7 @@
 					{
 						method: 'POST',
 						headers: { 'Content-Type': 'application/json' },
-						body: JSON.stringify(todoJson)
+						body: getJsonTodoFromForm()
 					}
 				);			
 				logJson(responseJson);
@@ -137,7 +180,7 @@
 					{
 						method: 'PUT',
 						headers: { 'Content-Type': 'application/json' },
-						body: JSON.stringify(todoJson)						 
+						body: getJsonTodoFromForm()						 
 					}
 				);			
 				logJson(responseJson);
