@@ -74,8 +74,6 @@
 		<div id="content">
 			<span id="actions">
 				
-				<!-- <textarea id="todoBody" rows="8" cols="100">
-				</textarea>	 -->
 				<div id="form">
 					<div>
 						<span>Id</span>
@@ -103,7 +101,11 @@
 					</div>
 					<div>
 						<span>Priority</span>
-						<input type="number" id="todoPriority" />
+						<select id="todoPriority">
+							<option value="1">HIGH</option>
+							<option value="2">MEDIUM</option>
+							<option value="3">LOW</option>
+						</select>
 					</div>
 				</div>
 				
@@ -130,17 +132,10 @@
 		const selectAll = cssSelector => [].slice.call(document.querySelectorAll(cssSelector));	
 		const setText = (id, text) => selectById(id).innerHTML = text;
 		
-		// const defaultTodoBody = {   
-		// 	name: "Software testing course", 
-		// 	description: "Java Selenium Module", 
-		// 	project : "SDA",
-		// 	date:  "01/03/2020",
-		// 	time: "09:00 AM",
-		// 	priority: 1
-		// };
-		// selectById('todoBody').value = JSON.stringify(defaultTodoBody, null, 2);
-		// selectById('todoId').value = 0;
 		
+		selectById('todoId').value = 0;	
+
+
 		const rest = async (url, options) => {
 			const response = await fetch(url, options);
 			return await response.json();
