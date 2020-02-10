@@ -23,7 +23,9 @@ func main() {
 
 	router.LoadHTMLGlob("./html/*.html")
 	router.StaticFile( "favicon.ico", "./html/favicon.ico")
-	router.Static("/static", "static")
+	router.StaticFile( "todo.css", "./html/todo.css")
+	router.StaticFile( "todo.js", "./html/todo.js")
+//	router.Static("/static", "static")
 
 	todoApiRouter := router.Group("/api/todo")
 	{
