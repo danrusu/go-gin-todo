@@ -22,6 +22,7 @@
 			button:hover{
 				background-color: indianred;
 				color: white;
+				
 			}
 			textarea{
 				width: 350px;
@@ -35,6 +36,22 @@
 				width: 100px;
 				color: darkblue;
 				margin: 10px;
+			}
+
+			#todos{
+				vertical-align: top;
+			}		
+			.priority-1-note{
+				background-color: indianred;
+				color: white;
+			}
+			.priority-2-note{
+				background-color: orange;
+				color: white;
+			}
+			.priority-3-note{
+				background-color: lightblue;
+				color: white;
 			}
 
 		</style>
@@ -119,11 +136,11 @@
 		}
 
 		const createTodoHtml = todoJson => {
-			const noteClass = todoJson.priority == 1 ? 'priority-1-note' 
+			const todoClass = todoJson.priority == 1 ? 'priority-1-note' 
 				:  todoJson.priority == 2 ? 'priority-2-note'
 				: 'priority-3-note';
 
-			return '<div clas="' + noteClass + '">'
+			return '<div clas="' + todoClass + '">'
 				+ '<div class="title"' + todoJson.name + '</div>'
 				+ '<div class="description">' + todoJson.description + '</div>'
 				+ '<div class="date">' + todoJson.date + todoJson.time + '</div>'
