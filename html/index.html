@@ -131,7 +131,7 @@
 				+ '</div>';
 		}
 
-		const getJsonTodo = () =>
+		const getTodoJson = () =>
 			selectAll('#form input').reduce(
 				(todoJson, input) => todoJson = { ...todoJson, [input.id]: input.value }
 		);			
