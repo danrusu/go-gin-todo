@@ -16,7 +16,7 @@
 			#todos{
 				width: 30%;				
 			}
-			button, input, label, textarea{								
+			button, input, select, label, textarea{								
 				margin: 10px;
 				padding: 5px;
 				width: 150px;
@@ -155,7 +155,7 @@
 		}
 
 		const getTodoJson = () => {
-			const todoJson = selectAll('#form input').reduce(
+			const todoJson = selectAll('#form input, #form.select').reduce(
 				(acc, input) => {
 					// id = todoName => key = name
 					const key = input.id.replace('todo','').toLowerCase();
