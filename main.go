@@ -29,6 +29,7 @@ func main() {
 
 	todoApiRouter := router.Group("/api/todo")
 	{
+		todoApiRouter.HEAD("/healthcheck", healthcheck)
 		todoApiRouter.GET("/", getAllTodos)
 		todoApiRouter.POST("/reset", resetAllTodos)
 		todoApiRouter.GET("/:id", getTodo)
@@ -45,6 +46,14 @@ func main() {
 	}
 
 	router.Run(":" + port)
+}
+
+func healthcheck(context *gin.Context){
+	context.JSON(
+        	http.StatusOK, // header
+                gin.H{
+                        "status": "healthy"
+                })
 }
 
 func findTodoInList(context *gin.Context, todoId int) int {
