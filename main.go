@@ -50,7 +50,7 @@ func main() {
 
 func healthcheck(context *gin.Context){
 	context.JSON(
-        	http.StatusOK, // header
+        	http.StatusOK,
                 gin.H{
                         "status": "healthy",
                 })
