@@ -29,7 +29,7 @@ func main() {
 
 	todoApiRouter := router.Group("/api/todo")
 	{
-		todoApiRouter.HEAD("/healthcheck", healthcheck)
+		todoApiRouter.GET("/healthcheck", healthcheck)
 		todoApiRouter.GET("/", getAllTodos)
 		todoApiRouter.POST("/reset", resetAllTodos)
 		todoApiRouter.GET("/:id", getTodo)
