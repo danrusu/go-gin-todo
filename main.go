@@ -17,6 +17,10 @@ var (
 func main() {
 	port := os.Getenv("PORT")
 
+	if port == "" {
+		port = "3000"
+	}
+
 	todos = []*models.Todo{}
 
 	router := gin.Default()
@@ -29,7 +33,7 @@ func main() {
 
 	todoApiRouter := router.Group("/api/todo")
 	{
-		todoApiRouter.GET("/healthcheck", healthcheck)
+		todoApiRouter.HEAD("/healthcheck", healthcheck)
 		todoApiRouter.GET("/", getAllTodos)
 		todoApiRouter.POST("/reset", resetAllTodos)
 		todoApiRouter.GET("/:id", getTodo)
@@ -48,12 +52,8 @@ func main() {
 	router.Run(":" + port)
 }
 
-func healthcheck(context *gin.Context){
-	context.JSON(
-		http.StatusOK,
-		gin.H{
-			"status": "healthy",
-		})
+func healthcheck(context *gin.Context) {
+	context.Status(http.StatusOK)
 }
 
 func findTodoInList(context *gin.Context, todoId int) int {
