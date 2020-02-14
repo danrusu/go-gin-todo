@@ -49,11 +49,7 @@ func main() {
 }
 
 func healthcheck(context *gin.Context){
-	context.JSON(
-        	http.StatusOK,
-                gin.H{
-                        "status": "healthy",
-                })
+	context.JSON(http.StatusOK)
 }
 
 func findTodoInList(context *gin.Context, todoId int) int {
