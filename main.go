@@ -1,6 +1,7 @@
 package main
 
 import (
+	"github.com/gin-contrib/cors"
 	"github.com/danrusu/go-chi-todo/models"
 	"github.com/gin-gonic/gin"
 	"log"
@@ -24,6 +25,7 @@ func main() {
 	todos = []*models.Todo{}
 
 	router := gin.Default()
+	router.Use(cors.Default())
 
 	router.LoadHTMLGlob("./html/*.html")
 	router.StaticFile("favicon.ico", "./html/favicon.ico")
@@ -199,4 +201,8 @@ func resetAllTodos(context *gin.Context) {
 func getTodoId(context *gin.Context) int {
 	todoId, _ := strconv.Atoi(context.Param("id"))
 	return todoId
+}
+
+func enableCors(w *http.ResponseWriter) {
+	(*w).Header().Set("Access-Control-Allow-Origin", "*")
 }
